@@ -1,9 +1,39 @@
+import java.awt.*;
+
 //Comparator for the ColorCounter class
 class CountComparator implements Comparator {
   int compare(Object o1, Object o2) {
     double int1 = ((ColorCounter) o1).factor;
     double int2 = ((ColorCounter) o2).factor;
     return (int1<int2) ? -1 : (int1==int2) ? 0 : 1;
+  }
+}
+
+//Alt Comparator for the ColorCounter class
+//Sorts by Hue, Brightness, Saturation
+class RGBComparator implements Comparator {
+  int compare(Object o1, Object o2) {
+    int aR = (((ColorCounter) o1).farbe >> 16) & 0xFF;;
+    int aG = (((ColorCounter) o1).farbe >> 8) & 0xFF;
+    int aB = ((ColorCounter) o1).farbe& 0xFF;
+    float[] hsv1 = new float[3];
+    Color.RGBtoHSB(aR, aG, aB, hsv1);
+    
+    int bR = (((ColorCounter) o2).farbe >> 16) & 0xFF;;
+    int bG = (((ColorCounter) o2).farbe >> 8) & 0xFF;
+    int bB = ((ColorCounter) o2).farbe& 0xFF;
+    float[] hsv2 = new float[3];
+    Color.RGBtoHSB(bR, bG, bB, hsv2);
+    
+    //return (hsv1[0]<hsv2[0]) ? -1 : (hsv1[0]==hsv2[0]) ? 0 : 1;
+    return 
+    (hsv1[0]<hsv2[0]) ? -1 : 
+    (hsv1[0]>hsv2[0]) ? 1 : 
+    (hsv1[2]<hsv2[2]) ? -1 : 
+    (hsv1[2]>hsv2[2]) ? 1 : 
+    (hsv1[1]<hsv2[1]) ? -1 : 
+    (hsv1[1]>hsv2[1]) ? 1 :
+    0;
   }
 }
 
