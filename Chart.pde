@@ -56,7 +56,12 @@ void pieChart(ArrayList<ColorCounter> colorList, float innerRadius, float outerR
   fill(255);
   textSize(70);
   textAlign(CENTER, BOTTOM);
-  text(size, 0, 25);
+  if(size > 1000){
+    int sizek = size/1000;
+    int sizep = size/100 - (sizek*10);
+    text(sizek + "." + sizep + "k", 0, 25);
+  }
+  else{ text(size, 0, 25); }
   textSize(10);
   textAlign(CENTER, TOP);
   fill(255);
